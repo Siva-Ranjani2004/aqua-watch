@@ -1,282 +1,203 @@
+<div align="center">
+
 # UrbanFix
 
-**An AI-Based Multimodal Civic Complaint Classification and Management System**
+### An AI-Based Multimodal Civic Complaint Classification and Management System
 
-UrbanFix is a research-based smart city solution that leverages artificial intelligence to improve municipal civic infrastructure management. The system enables citizens to report civic issues — potholes, garbage accumulation, water leakage, sewage overflow, damaged streetlights, road obstructions, and drainage problems — and assists municipal authorities in efficiently managing complaints through intelligent multimodal analysis, prioritization, and decision support.
+**22CSP72 — Project Work II, Phase I** · Team **D05** · Kongu Engineering College
 
-**Project Code:** 22CSP72 – Project Work II, Phase I
-**Team Number:** D05
-**Team Guide:** Ramana S
-**Team Members:**
-- Sanjani Prakash M (23CSR188)
-- Sivaranjani S (23CSR205)
-- Yahya Imthiyas S (23CSR243)
+[![Status](https://img.shields.io/badge/status-Phase%20I%20%E2%80%94%20Review%201-blue)]()
+[![License](https://img.shields.io/badge/license-MIT-green)]()
+[![Made with](https://img.shields.io/badge/AI-EfficientNetV2%20%7C%20DistilBERT%20%7C%20CLIP-orange)]()
 
-**Institution:** Kongu Engineering College, Perundurai
+</div>
 
 ---
+
+UrbanFix is a smart-city solution that lets citizens report civic infrastructure issues — potholes, garbage accumulation, water leakage, sewage overflow, damaged streetlights, road obstructions, and drainage problems — through a mobile app, and uses multimodal AI (image + text + GPS + timestamp) to automatically classify, deduplicate, prioritize, and route those complaints for municipal authorities to act on through a real-time decision-support dashboard.
 
 ## Table of Contents
 
 - [Problem Statement](#problem-statement)
-- [Research Gap](#research-gap)
 - [Objectives](#objectives)
 - [Key Features](#key-features)
-- [AI Technologies](#ai-technologies)
-- [Architecture Design](#architecture-design)
-- [Proposed Work](#proposed-work)
-- [Modules of the Project](#modules-of-the-project)
-- [Technology Stack](#technology-stack)
-- [Project Structure](#project-structure)
-- [Outcomes](#outcomes)
-- [Literature Survey](#literature-survey)
+- [Architecture](#architecture)
+- [Tech Stack](#tech-stack)
+- [Repository Structure](#repository-structure)
+- [Getting Started](#getting-started)
+- [Documentation](#documentation)
+- [Preliminary Outcomes](#preliminary-outcomes)
+- [Roadmap](#roadmap)
+- [Team](#team)
+- [Contributing / Git Workflow](#contributing--git-workflow)
 - [References](#references)
-- [Application Domains](#application-domains)
+- [License](#license)
 
 ---
 
 ## Problem Statement
 
-Urban areas frequently face public infrastructure issues such as potholes, garbage accumulation, water leakage, sewage overflow, damaged streetlights, road obstructions, and drainage problems. Existing complaint management systems rely heavily on manual reporting, categorization, and routing, resulting in delayed responses and duplicate complaints.
-
-Moreover, most current AI-based solutions are limited to image classification and lack advanced capabilities such as multimodal complaint analysis, duplicate detection, severity assessment, and complaint prioritization. There is therefore a critical need for an intelligent, AI-powered multimodal public issue management system that can improve complaint handling, resource allocation, and municipal decision-making.
-
----
-
-## Research Gap
-
-- Existing civic complaint systems primarily rely on single-modal analysis (image or text) and do not integrate image, complaint text, GPS location, and timestamp for comprehensive complaint understanding.
-- Duplicate complaints are not automatically detected, leading to redundant processing, delayed resolution, and inefficient utilization of municipal resources.
-- Most existing approaches lack severity prediction and hotspot detection, making it difficult for authorities to prioritize critical civic issues and allocate resources effectively.
-- Current systems provide limited AI-driven decision support, with inadequate real-time analytics, automated department routing, and performance monitoring for efficient complaint management.
-
----
+Urban local bodies receive large volumes of civic complaints, but existing complaint-management systems rely on manual reporting and categorization, causing delayed responses and duplicate complaints. Most AI-based tools in this space stop at basic image classification and lack duplicate detection, severity estimation, hotspot analysis, and prioritized decision support — all of which are needed for efficient municipal resource allocation. UrbanFix addresses this by combining computer vision, NLP, and geospatial analytics in a single multimodal pipeline. Full details: [`docs/UrbanFix_Research_Gap_v1.0.docx`](docs/UrbanFix_Research_Gap_v1.0.docx).
 
 ## Objectives
 
-- Automatically classify various civic issues such as potholes, garbage accumulation, water leakage, sewage overflow, damaged streetlights, and road damage from citizen-uploaded images using deep learning.
-- Enhance complaint understanding by integrating image, complaint text, GPS location, and timestamp through multimodal AI for accurate complaint analysis and department routing.
-- Detect duplicate complaints, predict issue severity, and prioritize complaints using AI techniques for efficient municipal resource allocation.
-- Provide an intelligent decision support dashboard with hotspot detection, real-time analytics, complaint tracking, and performance insights for faster, data-driven decision-making by municipal authorities.
-
----
+- Automatically classify civic issues (potholes, garbage, water leakage, sewage overflow, damaged streetlights, road damage, etc.) from citizen-uploaded images using deep learning.
+- Fuse image, complaint text, GPS location, and timestamp through multimodal AI for accurate complaint understanding and department routing.
+- Detect duplicate complaints, predict issue severity, and prioritize complaints for efficient resource allocation.
+- Provide an AI-powered decision-support dashboard with hotspot detection, real-time analytics, and resolution tracking for municipal authorities.
 
 ## Key Features
 
 | Feature | Description |
 |---|---|
-| AI-based Civic Issue Classification | Automatically categorizes reported issues from images |
+| AI-based Issue Classification | Classifies reported issues from citizen-uploaded images |
 | Complaint Text Understanding | Extracts meaning and context from complaint descriptions |
 | GPS-based Complaint Tracking | Geotags every complaint for spatial analysis |
 | Duplicate Complaint Detection | Identifies and merges repeated reports of the same issue |
-| Severity Prediction | Estimates the urgency/impact of a reported issue (Low / Medium / High / Critical) |
-| Priority Ranking | AI-based prioritization of complaints for efficient resource allocation |
+| Severity Prediction | Estimates urgency/impact (Low / Medium / High / Critical) |
+| Priority Ranking | AI-based prioritization for efficient resource allocation |
 | Hotspot Detection | Surfaces geographic clusters of recurring civic problems |
-| Department Routing | Rule + AI-based routing of complaints to the appropriate department/officer |
-| AI-powered Decision Support Dashboard | Centralized real-time analytics for municipal authorities |
+| Department Routing | Rule + AI-based routing to the correct department/officer |
+| Decision Support Dashboard | Real-time analytics for municipal authorities |
 | Resolution Tracking | Monitors complaint status from report to resolution |
 
----
-
-## AI Technologies
-
-| Module | Technology |
-|---|---|
-| Image Preprocessing | OpenCV (Resize, Normalize, Denoise, Augment) |
-| Image Feature Extraction / Classification | EfficientNetV2 |
-| Text Preprocessing | Cleaning, Tokenization, Stopword Removal |
-| Text Feature Extraction | DistilBERT / BERT |
-| Multimodal Fusion | Feature Fusion Network (Image + Text + Location + Time) |
-| Duplicate Detection | CLIP Embeddings + FAISS |
-| Severity Prediction | Multimodal Severity Prediction Model |
-| Hotspot Detection | DBSCAN (Geo-spatial Clustering) |
-| Decision Support | Analytics Dashboard |
-
----
-
-## Architecture Design
+## Architecture
 
 ```text
-Citizen
-        │
-        ├── Upload Image
-        ├── Complaint Description (Text)
-        ├── GPS Location
-        └── Timestamp
-                │
-                ▼
-        ┌───────────────── PREPROCESSING ─────────────────┐
-        │  Image Preprocessing   Text Preprocessing         │
-        │  (OpenCV)              (Cleaning, Tokenization,   │
-        │                         Stopword Removal)         │
-        │                Data Normalization (GPS, Timestamp)│
-        └───────────────────────┬──────────────────────────┘
-                                 ▼
-        ┌────────────────── MULTIMODAL AI MODELS ──────────────────┐
-        │  Image Feature Extraction (EfficientNetV2)                │
-        │  Text Feature Extraction (BERT / DistilBERT)               │
-        │  Multimodal Fusion (Image + Text + Location + Time)        │
-        │              ▼                                             │
-        │       Issue Classification (Multi-class Classification)    │
-        └───────────────────────┬────────────────────────────────────┘
-                                 ▼
-        ┌────────────────── ADVANCED AI ANALYTICS ─────────────────┐
-        │  Duplicate Detection   Severity Prediction                │
-        │  (Siamese/CLIP+FAISS)  (Low/Medium/High/Critical)          │
-        │  Priority Ranking      Hotspot Detection                  │
-        │  (AI-based)            (DBSCAN Geo-spatial Clustering)    │
-        └───────────────────────┬────────────────────────────────────┘
-                                 ▼
-                        Department Routing
-        (Rule + AI-based Routing to Appropriate Department / Officer)
+Citizen → Upload Image + Complaint Text + GPS + Timestamp
+              │
+              ▼
+   PREPROCESSING (OpenCV · Tokenization · GPS/Timestamp Normalization)
+              │
+              ▼
+   MULTIMODAL AI MODELS
+   EfficientNetV2 (image) + DistilBERT (text) → Feature Fusion Network
+              │
+              ▼
+   Issue Classification (Multi-class)
+              │
+              ▼
+   ADVANCED AI ANALYTICS
+   Duplicate Detection (CLIP + FAISS) · Severity Prediction · Priority Ranking · Hotspot Detection (DBSCAN)
+              │
+              ▼
+   Department Routing → Decision Support Dashboard (Municipality)
 ```
 
----
+Full diagram and module-level design: [`docs/UrbanFix_Methodology_v1.0.docx`](docs/UrbanFix_Methodology_v1.0.docx).
 
-## Proposed Work
+## Tech Stack
 
-- Develop a multimodal AI-based civic complaint analysis system by integrating EfficientNetV2 for image feature extraction, DistilBERT for complaint text understanding, and a Feature Fusion Network to combine image, text, GPS location, and timestamp for accurate issue classification and department routing.
-- Implement intelligent complaint analysis through duplicate complaint detection using CLIP Embeddings + FAISS and AI-based severity prediction to estimate issue urgency and support effective complaint prioritization.
-- Perform hotspot detection and resource optimization using DBSCAN clustering and AI-based prioritization to identify recurring civic issues and assist municipal authorities in efficient resource allocation.
-- Develop an AI-powered decision support dashboard using React.js and FastAPI to monitor complaints, visualize hotspot regions, track complaint resolution, and provide real-time analytics for data-driven decision-making.
+**AI / ML** — EfficientNetV2 · DistilBERT · CLIP · FAISS · DBSCAN · OpenCV · PyTorch · Scikit-learn
+**Mobile App (Citizen)** — Flutter
+**Backend** — Python · FastAPI
+**Web Dashboard (Municipality)** — React.js
+**Database** — PostgreSQL
+**Maps** — Leaflet.js / OpenStreetMap
 
----
-
-## Modules of the Project
-
-### Citizen Platform (Mobile App — built with Flutter)
-
-**Module 1: User Authentication & Complaint Management**
-User registration and login, complaint submission with image upload, GPS location capture, and complaint status tracking.
-
-**Module 2: AI-Based Issue Classification**
-Image preprocessing, civic issue classification using EfficientNetV2, complaint text analysis using DistilBERT, and multimodal feature fusion.
-
-**Module 3: Intelligent Complaint Analysis**
-Duplicate complaint detection using CLIP + FAISS, severity prediction (AI model), complaint prioritization, and hotspot detection using DBSCAN.
-
-**Module 4: Decision Support Dashboard**
-Complaint analytics, hotspot visualization on map, complaint progress monitoring, and resource allocation support for municipal decision-making.
-
-### Municipality Platform (Web Dashboard — built with React.js + FastAPI)
-
-- Real-time Overview & Analytics
-- Hotspot Visualization on Map
-- Complaint Management & Tracking
-- Resource Allocation & Decision Support
-
----
-
-## Technology Stack
-
-**Artificial Intelligence**
-EfficientNetV2 · DistilBERT / BERT · CLIP · FAISS · DBSCAN · OpenCV · PyTorch · Scikit-learn
-
-**Mobile App (Citizen Platform)**
-Flutter
-
-**Backend**
-Python · FastAPI
-
-**Frontend (Municipality Dashboard)**
-React.js
-
-**Database**
-PostgreSQL
-
-**Maps**
-Leaflet.js / OpenStreetMap / Google Maps
-
----
-
-## Project Structure
+## Repository Structure
 
 ```
 UrbanFix/
 │
-├── mobile-app/            # Flutter citizen complaint app
-├── dashboard/              # React.js municipality web dashboard
-├── backend/                 # FastAPI backend services
+├── mobile-app/              # Flutter citizen complaint app
+├── dashboard/                # React.js municipality web dashboard
+├── backend/                   # FastAPI backend services
 ├── ai-models/
-│   ├── image-classification/   # EfficientNetV2
-│   ├── text-analysis/          # DistilBERT
-│   ├── duplicate-detection/    # CLIP + FAISS
+│   ├── image-classification/    # EfficientNetV2
+│   ├── text-analysis/           # DistilBERT
+│   ├── duplicate-detection/     # CLIP + FAISS
 │   ├── severity-prediction/
-│   └── hotspot-detection/      # DBSCAN
+│   └── hotspot-detection/       # DBSCAN
 │
-├── datasets/
-├── notebooks/
-├── docs/
+├── datasets/                 # Training/testing data (not committed — see datasets/README.md)
+├── notebooks/                # Exploratory / training notebooks
+├── docs/                      # Project documentation (see below)
 └── README.md
 ```
 
----
+## Getting Started
 
-## Outcomes
+> The mobile app, backend, and dashboard are under active development for Phase I. The steps below reflect the intended setup once each module lands.
 
-An initial image classification model was trained to identify civic water-related issues (Drainage Overflow, Tap Broken, Water Leakage, Water Logging, Water Pollution) from citizen-uploaded photographs.
+```bash
+# Clone the repository
+git clone https://github.com/urbanfix-d05/UrbanFix.git
+cd UrbanFix
 
-**Sample Prediction Output**
+# Backend (FastAPI)
+cd backend
+python -m venv venv && source venv/bin/activate
+pip install -r requirements.txt
+uvicorn main:app --reload
 
+# Web Dashboard (React.js)
+cd ../dashboard
+npm install
+npm start
+
+# Mobile App (Flutter)
+cd ../mobile-app
+flutter pub get
+flutter run
 ```
-Prediction
-======================================
-waterpollution : 69.35%
-WaterLogging   : 22.42%
-```
 
-**Confusion Matrix (5-class model)**
+## Documentation
 
-| True \ Predicted | DrainageOverflow | TapBroken | WaterLeakage | WaterLogging | waterpollution |
-|---|---|---|---|---|---|
-| DrainageOverflow | 43 | 0 | 0 | 3 | 0 |
-| TapBroken | 0 | 5 | 1 | 0 | 3 |
-| WaterLeakage | 0 | 0 | 6 | 4 | 2 |
-| WaterLogging | 0 | 1 | 1 | 60 | 5 |
-| waterpollution | 0 | 0 | 0 | 0 | 45 |
+All Review 1 deliverables live in [`docs/`](docs/):
 
-The model shows strong performance on high-frequency classes (DrainageOverflow, WaterLogging, waterpollution), with some confusion among visually similar minority classes (TapBroken, WaterLeakage), indicating a direction for further data augmentation and class balancing.
+| Document | Description |
+|---|---|
+| [`UrbanFix_Literature_Survey_v1.0.docx`](docs/UrbanFix_Literature_Survey_v1.0.docx) | Review of the base paper and reference papers, with critical analysis |
+| [`UrbanFix_Research_Gap_v1.0.docx`](docs/UrbanFix_Research_Gap_v1.0.docx) | Identified research gaps and how UrbanFix addresses each |
+| [`UrbanFix_Methodology_v1.0.docx`](docs/UrbanFix_Methodology_v1.0.docx) | Full technical methodology, module design, evaluation plan, roadmap |
+| [`UrbanFix_Meeting_Minutes_v1.0.docx`](docs/UrbanFix_Meeting_Minutes_v1.0.docx) | Team–guide meeting log for Review 1 |
+| [`UrbanFix_Git_Workflow_Commit_Log_v1.0.docx`](docs/UrbanFix_Git_Workflow_Commit_Log_v1.0.docx) | Branching strategy, commit conventions, and commit log |
 
----
+Each document carries its own version-history table — bump the version number there as it's revised, rather than creating new files, so history stays in Git rather than in filenames.
 
-## Literature Survey
+## Preliminary Outcomes
 
-| Feature | Paper 1 | Paper 2 | Paper 3 |
-|---|---|---|---|
-| **Title** | CitySolution: A Complaining Task Distributive Mobile Application for Smart City Corporation Using Deep Learning | AI-Powered Civic Issue Reporting and Resolution System | CivicFix: Smart Complaint Routing for Urban Solutions |
-| **Authors** | Farhatun Shama, Abdul Aziz, Lamisa Bintee Mizan Deya | K. Sindhu Abhirami, K. Krishna Sai, V. Pardha Siva Sitha Rama Reddy, P. Srinivasa Reddi | Roopesh Kumar B. N., Thanusha S., Shravya R., Shreya P. R., Sunidhi R. |
-| **Dataset Used** | Custom dataset of civic issue images (Damaged Road, Flood, Trash, Homeless People) | Custom urban issues dataset of annotated images (Electrical Poles, Road Signs, Fallen Trees, Garbage, Potholes) | Civic complaint images with Google Maps location data |
-| **Algorithm** | Teachable Machine (MobileNet + CNN + Transfer Learning) | YOLOv8s + Qwen2.5 LLM | Machine Learning-based Image Classification using CNN |
-| **Prediction Target** | Complaint Category Classification | Urban Issue Detection & Description Generation | Complaint Classification & Smart Routing |
+An initial EfficientNetV2 prototype was trained on a 5-class water-issue subset (Drainage Overflow, Tap Broken, Water Leakage, Water Logging, Water Pollution). It performs strongly on the higher-frequency classes (Drainage Overflow, Water Logging, Water Pollution), with some confusion between the visually similar minority classes Tap Broken and Water Leakage — flagged as a target for further data augmentation and class balancing in Phase 2.
 
----
+## Roadmap
+
+- [x] Phase 1 — Literature survey & research planning
+- [ ] Phase 2 — Data collection & preprocessing pipeline
+- [ ] Phase 3 — Image & text model development
+- [ ] Phase 4 — Multimodal fusion & issue classification
+- [ ] Phase 5 — Duplicate detection & severity prediction
+- [ ] Phase 6 — Hotspot detection & priority ranking
+- [ ] Phase 7 — Mobile app & dashboard integration
+- [ ] Phase 8 — Testing, evaluation & documentation
+
+Full phase-by-phase plan: [`docs/UrbanFix_Methodology_v1.0.docx`](docs/UrbanFix_Methodology_v1.0.docx).
+
+## Team
+
+| Name | Register No. | Role |
+|---|---|---|
+| Sanjani Prakash M | 23CSR188 | — |
+| Sivaranjani S | 23CSR205 | — |
+| Yahya Imthiyas S | 23CSR243 | — |
+
+**Guide:** Ramana S
+
+## Contributing / Git Workflow
+
+- `main` is protected — always in a working/presentable state.
+- Work happens on `feature/<module>` or `docs/<document>` branches, merged via reviewed pull requests.
+- Commit messages follow a Conventional-Commits style: `feat|fix|docs|chore(<scope>): <short description>`.
+- Commits are kept small and pushed continuously as work is completed, not batched before deadlines.
+
+Full details: [`docs/UrbanFix_Git_Workflow_Commit_Log_v1.0.docx`](docs/UrbanFix_Git_Workflow_Commit_Log_v1.0.docx).
 
 ## References
 
-**Base Paper**
-- **Title:** CitySolution: A Complaining Task Distributive Mobile Application for Smart City Corporation Using Deep Learning
-- **Journal:** SoftwareX (Elsevier)
-- **Year:** 2024
+1. Farhatun Shama, Abdul Aziz, Lamisa Bintee Mizan Deya, "CitySolution: A complaining task distributive mobile application for smart city corporation using deep learning," *SoftwareX*, vol. 27, p. 101829, 2024.
+2. K. Sindhu Abhirami, K. Krishna Sai, V. Pardha Siva Sitha Rama Reddy, P. Srinivasa Reddi, "AI-Powered Civic Issue Reporting and Resolution System," *IJRASET*, 2026.
+3. Roopesh Kumar B. N., Thanusha S., Shravya R., Shreya P. R., Sunidhi R., "CivicFix: Smart Complaint Routing for Urban Solutions," *IJARCCE*, 2025.
 
-**Reference Paper 1**
-- **Title:** AI-Powered Civic Issue Reporting and Resolution System
-- **Journal:** International Journal for Research in Applied Science & Engineering Technology (IJRASET)
-- **Year:** 2026
+## License
 
-**Reference Paper 2**
-- **Title:** CivicFix: Smart Complaint Routing for Urban Solutions
-- **Journal:** International Journal of Advanced Research in Computer and Communication Engineering (IJARCCE)
-- **Year:** 2025
-
----
-
-## Application Domains
-
-- Smart Cities
-- Municipal Governance
-- Urban Civic Infrastructure
-- Civic Complaint Management
-- Artificial Intelligence
-- Computer Vision
-- Natural Language Processing
-- Geospatial Analytics
+This project is developed for academic purposes as part of 22CSP72, Kongu Engineering College. License to be finalized by the team (MIT recommended for open collaboration).
