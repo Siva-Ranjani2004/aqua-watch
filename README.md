@@ -48,8 +48,6 @@ UrbanFix can identify various civic infrastructure problems, including:
 - Damaged Streetlights
 - Fallen Trees
 - Road Damage
-- Broken Public Taps
-- Drainage Blockages
 
 ---
 
